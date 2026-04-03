@@ -1,8 +1,11 @@
 import nltk
 
-# Download required NLTK datasets (will skip if already downloaded)
+# Download required NLTK datasets
 nltk.download('punkt', quiet=True)
-nltk.download('averaged_perceptron_tagger', quiet=True)
+nltk.download('punkt_tab', quiet=True)
+nltk.download('averaged_perceptron_tagger_eng', quiet=True) 
+
+
 
 def parse_query(user_input):
     """
