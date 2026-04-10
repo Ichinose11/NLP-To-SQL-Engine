@@ -3,47 +3,85 @@ from typing import Dict, Any, Tuple, List
 
 logger = logging.getLogger(__name__)
 
+# Expanded Schema Mapping for Medium-Level Queries
 SCHEMA_MAPPING = {
+    # --- Geographic (City) ---
     "nagpur": "city",
     "mumbai": "city",
     "pune": "city",
     "bangalore": "city",
     "hyderabad": "city",
     "delhi": "city",
+    "chennai": "city",
+    "noida": "city",
+    "city": "city",
+    "cities": "city",
+
+    # --- Departments ---
+    "engineering": "department",
+    "sales": "department",
+    "marketing": "department",
+    "hr": "department",
+    "finance": "department",
+    "it": "department",
+    "department": "department",
+    "team": "department",
+
+    # --- Roles & Specializations ---
     "developers": "role",
     "developer": "role",
     "managers": "role",
     "manager": "role",
-    "senior": "level",
-    "junior": "level",
-    "salary": "salary",
-    "experience": "experience",
-    "years": "experience",
-    "city": "city",
-    "cities": "city",
+    "analyst": "role",
+    "scientists": "role",
+    "engineer": "role",
+    "devops": "role",
+    "testers": "role",
     "role": "role",
     "roles": "role",
+
+    # --- Seniority & Levels ---
+    "senior": "level",
+    "junior": "level",
+    "lead": "level",
+    "intern": "level",
+    "fresher": "level",
+    "director": "level",
     "level": "level",
-    "employees": "*"
+
+    # --- Employment Status & Work Mode ---
+    "remote": "work_mode",
+    "hybrid": "work_mode",
+    "onsite": "work_mode",
+    "active": "status",
+    "inactive": "status",
+    "resigned": "status",
+    "fired": "status",
+
+    # --- Quantitative / Numeric Synonyms ---
+    "salary": "salary",
+    "pay": "salary",
+    "compensation": "salary",
+    "bonus": "bonus",
+    "experience": "experience",
+    "years": "experience",
+    "tenure": "experience",
+    "rating": "performance_score",
+    "score": "performance_score",
+    "performance": "performance_score",
+
+    # --- Target Entities / Wildcards ---
+    "employees": "*",
+    "people": "*",
+    "staff": "*",
+    "workers": "*"
 }
 
-NUMERIC_COLUMNS = {"salary", "experience"} 
+NUMERIC_COLUMNS = {"salary", "experience", "bonus", "performance_score"} 
 
 def generate_sql(parsed_data: Dict[str, Any]) -> Tuple[str, List[Any]]:
     logger.info("Generating fully optimized safe SQL structure.")
     
-    column_mapping = {
-        "nagpur": "city",
-        "mumbai": "city",
-        "pune": "city",
-        "developers": "role",
-        "developer": "role",
-        "manager": "role",
-        "senior": "level",
-        "junior": "level",
-        "salary": "salary" 
-    }
-
     keywords = parsed_data.get('keywords', [])
     numerics = parsed_data.get('numerics', [])
     aggregations = parsed_data.get('aggregations', [])
